@@ -1,5 +1,29 @@
+.DS_Store
+node_modules
+/dist
 venv
-.idea
-node_modules/
+
+# local env files
 .env
 db.sqlite3
+/media
+
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# webpack-bundle-tracker
+webpack-stats.json
+webpack-prod-stats.json
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

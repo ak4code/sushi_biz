@@ -1,0 +1,95 @@
+{% load webpack_loader %}
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% endblock %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'home/favicon.ico' %}"/>
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <meta name="theme-color" content="#fafafa">
+    {% get_files 'app' 'js' as app_js_files %}
+    {% get_files 'app' 'css' as app_css_files %}
+    {% for js_file in app_js_files %}
+        <link href="{{ js_file.url }}" rel="preload" as="script">
+    {% endfor %}
+    {% get_files 'chunk-vendors' 'js' as chunk_js_files %}
+    {% for js_file in chunk_js_files %}
+        <link href="{{ js_file.url }}" rel="preload" as="script">
+    {% endfor %}
+    {% for css_file in app_css_files %}
+        <link href="{{ css_file.url }}" rel="preload" as="style">
+    {% endfor %}
+    {% render_bundle 'app' 'css' %}
+</head>
+<body>
+<div id="ss-biz">
+    <header id="ss-header" uk-sticky>
+        <nav class="uk-navbar-container" uk-navbar>
+            <div class="uk-navbar-left">
+                <a class="uk-navbar-item ss-menu" href="#ss-offcanvas-menu" uk-toggle>
+                    <span uk-navbar-toggle-icon></span> <span class="uk-visible@m uk-margin-small-left">Меню</span>
+                </a>
+                <div class="uk-navbar-item uk-text-uppercase uk-visible@m">г. Темрюк, ул. Таманская, 6</div>
+                <a href="tel:+79385044737" class="uk-visible@m uk-button-text uk-navbar-item">+7 (938) 50-44-737</a>
+            </div>
+            <div class="uk-navbar-center">
+                <a href="/" class="uk-navbar-item ss-logo" title="Sushi-Shop Темрюк">
+                    <img src="{% static 'home/logo.svg' %}" uk-svg height="60" alt="Sushi-Shop Темрюк">
+                </a>
+            </div>
+            <div class="uk-navbar-right">
+                <ul class="uk-navbar-nav ss-links uk-visible@m">
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+                <a href="/" class="uk-navbar-item ss-basket">
+                    <span class="uk-visible@m uk-margin-small-right">Корзина</span>
+                    <img src="{% static 'shop/basket.svg' %}" uk-svg width="20" height="20">
+                </a>
+            </div>
+        </nav>
+    </header>
+    {#    Offcanvas-menu start  #}
+    <div id="ss-offcanvas-menu" uk-offcanvas>
+        <div class="uk-offcanvas-bar">
+            <button class="uk-offcanvas-close" type="button" uk-close></button>
+            <ul class="uk-nav uk-nav-default uk-flex uk-flex-stretch uk-flex-wrap">
+                {% for item in menu.category.items.all %}
+                    <li class="uk-width-1-2">
+                        <a href="{{ item.get_url }}">{{ item.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {#    Offcanvas-menu stop  #}
+</div>
+{% block content %}{% endblock %}
+<footer id="ss-footer">
+    <div class="uk-card uk-card-body uk-card-default">
+        <div class="uk-container">
+            <div class="uk-flex uk-flex-middle uk-flex-wrap">
+                <div class="uk-width-1-3@m">
+                    <img src="{% static 'home/logo.svg' %}" uk-svg height="90" alt="Sushi-Shop Темрюк">
+                </div>
+                <div class="uk-width-1-3@m">{{ menu.slug.name }}</div>
+                <div class="uk-width-1-3@m"></div>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="ss-copyright">
+    <div class="uk-container uk-padding-small">
+        <span>Sushi-Shop Темрюк {% now 'Y' %}</span>
+    </div>
+</div>
+{% render_bundle 'chunk-vendors' 'js' %}
+{% render_bundle 'app' 'js' %}
+</body>
+</html>

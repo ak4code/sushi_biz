@@ -25,8 +25,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'solo.apps.SoloAppConfig',
+    'tinymce.apps.TinymceConfig',
+    'adminsortable2',
+    'webpack_loader',
+    'genericadmin',
     # my_apps
     'home.apps.HomeConfig',
+    'shop.apps.ShopConfig',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'home.context_processors.menu',
             ],
         },
     },
@@ -106,7 +112,6 @@ DATE_FORMAT = "d.m.Y"
 SHORT_DATE_FORMAT = "d.m.Y"
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -126,4 +131,13 @@ TINYMCE_DEFAULT_CONFIG = {
     'statusbar': True,
     'width': 'auto',
     'height': 360,
+}
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': '/',
+        'STATS_FILE': BASE_DIR / 'webpack-stats.json',
+        'IGNORE': [r'.+\.hot-update.js', r'.+\.map', r'.+\node_modules'],
+    }
 }

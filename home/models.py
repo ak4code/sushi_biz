@@ -1,7 +1,19 @@
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from solo.models import SingletonModel
 from tinymce import HTMLField
 from uuslug import uuslug
+
+
+def app_labeled_name(self):
+    model = self.model_class()
+    if not model:
+        return self.model
+    return '%s | %s' % (model._meta.app_config.verbose_name, model._meta.verbose_name)
+
+
+ContentType.app_labeled_name = property(app_labeled_name)
 
 
 class HomeBase(models.Model):
@@ -17,7 +29,8 @@ class HomeBase(models.Model):
 class HomeConfiguration(SingletonModel):
     site_name = models.CharField(max_length=255, default='Интернет магазин', verbose_name='Название сайта')
     maintenance_mode = models.BooleanField(default=False, verbose_name='Режим обслуживания')
-    home_page = models.OneToOneField('Page', on_delete=models.CASCADE, verbose_name='Главная страница')
+    home_page = models.OneToOneField('Page', related_name='is_home', blank=True, null=True, on_delete=models.CASCADE,
+                                     verbose_name='Главная страница')
 
     def __str__(self):
         return "Настройки"
@@ -67,7 +80,11 @@ class MenuItem(models.Model):
     )
     menu = models.ForeignKey('Menu', related_name='items', on_delete=models.CASCADE, verbose_name='Меню')
     name = models.CharField(max_length=255, verbose_name='Название')
-    link = models.CharField(max_length=255, verbose_name='Произвольная ссылка')
+    content_type = models.ForeignKey(ContentType, blank=True, null=True, on_delete=models.CASCADE,
+                                     verbose_name='Тип контента')
+    object_id = models.PositiveIntegerField(blank=True, null=True, verbose_name='ID обьекта')
+    content_object = GenericForeignKey('content_type', 'object_id')
+    link = models.CharField(max_length=255, blank=True, null=True, verbose_name='Произвольная ссылка')
     title = models.CharField(max_length=255, blank=True, null=True, verbose_name='Аттрибут title=')
     target = models.CharField(
         max_length=10,
@@ -76,10 +93,15 @@ class MenuItem(models.Model):
         blank=True,
         verbose_name='Аттрибут target='
     )
+    image = models.ImageField(upload_to='menu', blank=True, null=True, verbose_name='Картинка')
     show_in_menu = models.BooleanField(default=True, verbose_name='Отображать в меню')
 
     def __str__(self):
         return self.name
+
+    @property
+    def get_url(self):
+        return self.content_object.get_absolute_url()
 
     def save(self, *args, **kwargs):
         if not self.title:

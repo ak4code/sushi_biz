@@ -1,0 +1,96 @@
+// UIKit Theme Customizations (see https://getuikit.com/docs/sass)
+// 1. Your custom variables and variable overwrites in ./theme/_variables.scss
+@import "theme/variables";
+// $global-link-color: #DA7D02;
+// 2. Import default variables and available mixins.
+@import "~uikit/src/scss/variables-theme.scss";
+@import "~uikit/src/scss/mixins-theme.scss";
+// 3. Your custom mixin overwrites.
+//@import "theme/accordion-mixins.scss";
+// 4. Import UIkit.
+@import "~uikit/src/scss/uikit-theme.scss";
+
+#ss-header {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 980;
+
+  .ss-menu {
+    background: $sushi-gradient;
+    color: white;
+  }
+
+  .ss-links {
+    li > a {
+      transition: all .1s ease-in-out;
+
+      &:hover {
+        color: white;
+        background-color: $sushi-color;
+      }
+    }
+  }
+
+  .ss-basket {
+    background: $sushi-gradient;
+    color: white;
+  }
+}
+
+#ss-offcanvas-menu {
+  .uk-offcanvas-bar {
+    background: white;
+    color: #231F20 !important;
+    padding: 50px 0 0 0;
+    width: 300px;
+
+    h1, h2, h3, h4, h5 {
+      color: #231F20;
+    }
+
+    button {
+      color: #231F20;
+    }
+
+    .uk-nav {
+      li > a {
+        color: #231F20;
+        padding: 10px 15px;
+        transition: background-color .3s ease-out;
+        height: 100%;
+        box-sizing: border-box;
+
+        &:hover {
+          background: $sushi-color;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+.ss-logo {
+  img {
+    display: block;
+    height: $navbar-nav-item-height;
+  }
+}
+
+.ss-category-tile {
+  margin-bottom: 15px;
+
+  .uk-overlay {
+    padding: 20px 15px;
+    background: linear-gradient(0deg, black, transparent);
+  }
+}
+
+#ss-footer {
+  background: white;
+}
+
+.ss-copyright {
+  min-height: 40px;
+  background: $sushi-gradient;
+  color: white;
+}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category.seo_title }}{% endblock %}
+
+{% block description %}{{ category.seo_description }}{% endblock %}
+
+{% block content %}
+    <div style="min-height: 82vh">
+        <div class="uk-card uk-card-body uk-card-default uk-margin">
+            <div class="uk-container uk-container-small">
+                <h1 class="uk-text-center">{{ category.name }}</h1>
+                <p>{{ category.description|safe }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

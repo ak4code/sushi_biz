@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ page.seo_title }}{% endblock %}
+{% block description %}{{ page.seo_description }}{% endblock %}
+
+{% block content %}
+    <div class="uk-container uk-margin">
+        <h2 class="uk-text-center uk-text-bold uk-heading-line"><span>{{ menu.category.name }}</span></h2>
+        <div class="uk-flex uk-flex-center uk-flex-wrap uk-child-width-1-2 uk-child-width-1-4@m uk-grid-small uk-margin-top">
+            {% for item in menu.category.items.all %}
+                <div class="">
+                    <a href="{{ item.get_url }}" title="{{ item.name }}">
+                        <div class="ss-category-tile uk-border-rounded uk-overflow-hidden">
+                            <div class="uk-cover-container">
+                                <canvas height="270"></canvas>
+                                <img src="{{ item.image.url }}" uk-cover>
+                                <div class="uk-overlay uk-light uk-position-bottom">
+                                    <h3 class="uk-text-bold uk-text-small">{{ item.name }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="uk-card uk-card-body uk-card-default uk-margin">
+        <div class="uk-container uk-container-small">
+            <h1 class="uk-text-center">{{ page.title }}</h1>
+            <p>{{ page.content|safe }}</p>
+        </div>
+    </div>
+{% endblock %}
