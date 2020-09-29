@@ -1,10 +1,12 @@
+from adminsortable.admin import SortableAdmin
 from django.contrib import admin
+from import_export.admin import ImportExportActionModelAdmin
 from .models import Category, Product
-from adminsortable2.admin import SortableAdminMixin
+from import_export import resources
 
 
 @admin.register(Category)
-class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
+class CategoryAdmin(SortableAdmin):
     fieldsets = (
         ('Основные', {
             'fields': ('name', 'description', 'active', 'is_promo')
@@ -15,13 +17,24 @@ class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
     )
 
 
+class ProductResource(resources.ModelResource):
+    class Meta:
+        model = Product
+
+
 @admin.register(Product)
-class ProductAdmin(SortableAdminMixin, admin.ModelAdmin):
+class ProductAdmin(ImportExportActionModelAdmin, SortableAdmin):
+    change_list_template_extends = 'admin/import_export/change_list_import_export.html'
+    list_display = ('name', 'category', 'price', 'active')
+    list_display_links = ('name',)
+    list_filter = ('category', 'active')
+    search_fields = ('title',)
+    resource_class = ProductResource
     fieldsets = (
         ('Основные', {
             'fields': ('name', 'category', 'short_text', 'price', 'image', 'content')
         }),
         ('Дополнительно', {
-            'fields': ('active', 'label', 'order')
+            'fields': ('active', 'label',)
         }),
     )

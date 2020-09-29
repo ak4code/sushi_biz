@@ -44,6 +44,11 @@
     padding: 50px 0 0 0;
     width: 300px;
 
+    .uk-offcanvas-close {
+      top: 15px;
+      right: 10px;
+    }
+
     h1, h2, h3, h4, h5 {
       color: #231F20;
     }
@@ -53,6 +58,12 @@
     }
 
     .uk-nav {
+      .uk-nav-divider {
+        border-top-color: #d2382c;
+      }
+      .uk-nav-header {
+        color: $sushi-color;
+      }
       li > a {
         color: #231F20;
         padding: 10px 15px;
@@ -90,7 +101,19 @@
 }
 
 .ss-copyright {
-  min-height: 40px;
+  min-height: 20px;
   background: $sushi-gradient;
   color: white;
+  padding: 10px 0 10px 0;
+}
+
+.ss-product {
+  .uk-card {
+    height: 100%;
+    border: 1px solid $sushi-color;
+  }
+
+  .ss-product-name {
+    color: $sushi-color;
+  }
 }

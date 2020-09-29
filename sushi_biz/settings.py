@@ -26,9 +26,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'solo.apps.SoloAppConfig',
     'tinymce.apps.TinymceConfig',
-    'adminsortable2',
+    'adminsortable',
     'webpack_loader',
     'genericadmin',
+    'import_export',
+    'rest_framework',
+    'easy_thumbnails',
     # my_apps
     'home.apps.HomeConfig',
     'shop.apps.ShopConfig',
@@ -140,4 +143,22 @@ WEBPACK_LOADER = {
         'STATS_FILE': BASE_DIR / 'webpack-stats.json',
         'IGNORE': [r'.+\.hot-update.js', r'.+\.map', r'.+\node_modules'],
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 30,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'small_crop': {'size': (200, 200), 'quality': 80, 'crop': True},
+        'small': {'size': (200, 200), 'quality': 80, 'crop': False},
+        'medium_crop': {'size': (350, 350), 'quality': 80, 'crop': True},
+        'medium': {'size': (350, 350), 'quality': 80, 'crop': False},
+    },
 }

@@ -19,6 +19,8 @@ pnpm-debug.log*
 webpack-stats.json
 webpack-prod-stats.json
 
+package-lock.json
+
 # Editor directories and files
 .idea
 .vscode

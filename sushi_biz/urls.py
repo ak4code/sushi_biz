@@ -17,6 +17,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from .endpoints import router as api
 
 admin.site.site_header = 'Sushi-Shop'
 admin.site.site_title = 'Sushi-Shop'
@@ -25,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('menu/', include('shop.urls')),
+    path('api/', include(api.urls)),
     path('', include('home.urls')),
 ]
 
