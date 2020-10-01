@@ -4,15 +4,15 @@
 <html class="no-js" lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}</title>
-    <meta name="description" content="{% block description %}{% endblock %}">
+    <title>{% block title %}Sushi Shop Темрюк{% endblock %}</title>
+    <meta name="description" content="{% block description %}Sushi Shop Темрюк{% endblock %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{% static 'home/favicon.ico' %}"/>
-    <meta property="og:title" content="">
-    <meta property="og:type" content="">
-    <meta property="og:url" content="">
-    <meta property="og:image" content="">
-    <meta name="theme-color" content="#fafafa">
+    <meta property="og:title" content="Sushi Shop Темрюк">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.path }}">
+    <meta property="og:image" content="{% static 'home/logo.svg' %}">
+    <meta name="theme-color" content="#f14840">
     {% get_files 'app' 'js' as app_js_files %}
     {% get_files 'app' 'css' as app_css_files %}
     {% for js_file in app_js_files %}
@@ -48,7 +48,7 @@
                     <li><a href="#">Доставка</a></li>
                     <li><a href="#">Контакты</a></li>
                 </ul>
-                <basket></basket>
+                <basket url="{% url 'cart' %}"></basket>
             </div>
         </nav>
     </header>

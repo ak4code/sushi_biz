@@ -1,7 +1,7 @@
 from adminsortable.admin import SortableAdmin
 from django.contrib import admin
 from import_export.admin import ImportExportActionModelAdmin
-from .models import Category, Product
+from .models import Category, Product, Order, OrderItem
 from import_export import resources
 
 
@@ -38,3 +38,14 @@ class ProductAdmin(ImportExportActionModelAdmin, SortableAdmin):
             'fields': ('active', 'label',)
         }),
     )
+
+
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    extra = 1
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    inlines = [OrderItemInline]
+    list_display = ('__str__', 'delivery', 'create_at', 'update_at')

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Заказ создан - {{ block.super }}{% endblock %}
+
+{% block description %}Заказ создан - {{ block.super }}{% endblock %}
+
+{% block content %}
+    <div class="uk-container uk-margin" style="min-height: 82vh">
+        <h1 class="uk-text-center uk-h2 uk-text-bold uk-heading-line">
+            <span>Вы успешно создали заказ!</span>
+        </h1>
+        <div class="uk-card uk-card-default uk-border-rounded uk-card-body uk-padding-large uk-text-lead uk-text-center">
+            <p>Ожидайте звонка оператора для потверждения заказа.</p>
+            <p>Спасибо за заказ.</p>
+            <a class="uk-button uk-button-primary uk-button-large uk-border-rounded" href="/">Вернуться на главную</a>
+        </div>
+    </div>
+{% endblock %}

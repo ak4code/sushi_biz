@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from .endpoints import router as api
+from shop.views import CartView, CheckoutView, init_cart
 
 admin.site.site_header = 'Sushi-Shop'
 admin.site.site_title = 'Sushi-Shop'
@@ -26,6 +27,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('menu/', include('shop.urls')),
+    path('cart/', CartView.as_view(), name='cart'),
+    path('cart/init/', init_cart, name='init-cart'),
+    path('cart/checkout', CheckoutView.as_view(), name='checkout'),
     path('api/', include(api.urls)),
     path('', include('home.urls')),
 ]

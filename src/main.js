@@ -6,6 +6,8 @@ import '@/assets/styles/styles.scss'
 import Icons from 'uikit/dist/js/uikit-icons'
 import ProductList from '@/components/shop/ProductList'
 import Basket from '@/components/shop/Basket'
+import CartItemList from '@/components/shop/CartItemList'
+import OrderForm from '@/components/shop/OrderForm'
 
 UIkit.use(Icons)
 window.UIkit = UIkit
@@ -17,6 +19,8 @@ new Vue({
     el: '#ss-biz',
     components: {
         ProductList,
-        Basket
+        Basket,
+        CartItemList,
+        OrderForm
     }
 })

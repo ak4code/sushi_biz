@@ -2,14 +2,15 @@ import json
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import DetailView
+from django.views.generic import DetailView, TemplateView
+from rest_framework import permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from .models import Category, Product
-from .serializers import ProductSerializer, CategorySerializer
-from pprint import pprint
+from .models import Category, Product, Order
+from .serializers import ProductSerializer, CategorySerializer, OrderSerializer
+from .permissions import IsClient
 
 
 class CategoryDetailView(DetailView):
@@ -51,3 +52,26 @@ def init_cart(request):
         return JsonResponse({'cart': cart})
     except KeyError:
         return JsonResponse({'cart': []})
+
+
+class CartView(TemplateView):
+    template_name = 'shop/cart.html'
+
+
+class CheckoutView(TemplateView):
+    template_name = 'shop/checkout.html'
+
+
+class OrderViewSet(ModelViewSet):
+    queryset = Order.objects.prefetch_related('items', ).select_related('items__product')
+    serializer_class = OrderSerializer
+
+    def get_permissions(self):
+        """
+        Определяет вьюху и применяет к ней права доступа.
+        """
+        if self.action == 'create':
+            permission_classes = [IsClient]
+        else:
+            permission_classes = [permissions.DjangoModelPermissions]
+        return [permission() for permission in permission_classes]

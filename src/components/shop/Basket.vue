@@ -1,5 +1,5 @@
 <template>
-    <a href="/" class="uk-navbar-item ss-basket">
+    <a :href="url" class="uk-navbar-item ss-basket">
         <div class="uk-visible@m uk-margin-small-right">
             <span v-if="amount == 0">Корзина</span>
             <span v-else>{{amount}} ₽</span>
@@ -13,6 +13,7 @@
 
     export default {
         name: 'basket',
+        props: ['url'],
         mounted () {
             this.loadCart()
         },

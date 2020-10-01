@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Корзина товаров - {{ block.super }}{% endblock %}
+
+{% block description %}Корзина товаров - {{ block.super }}{% endblock %}
+
+{% block content %}
+    <div class="uk-container uk-margin" style="min-height: 82vh">
+        <h1 class="uk-text-center uk-h2 uk-text-bold uk-heading-line">
+            <span>Корзина</span>
+        </h1>
+        <div class="uk-flex uk-flex-wrap uk-grid-small">
+            <div class="uk-width-3-4@m uk-margin-bottom">
+                <div class="uk-card uk-card-small uk-card-body uk-border-rounded uk-card-default">
+                    <cart-item-list></cart-item-list>
+                </div>
+            </div>
+            <div class="uk-width-1-4@m">
+                <div class="uk-card uk-card-default uk-card-small uk-border-rounded uk-card-body">
+                    <order-form></order-form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

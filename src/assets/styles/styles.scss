@@ -61,9 +61,11 @@
       .uk-nav-divider {
         border-top-color: #d2382c;
       }
+
       .uk-nav-header {
         color: $sushi-color;
       }
+
       li > a {
         color: #231F20;
         padding: 10px 15px;
@@ -113,7 +115,27 @@
     border: 1px solid $sushi-color;
   }
 
+  .ss-product-label {
+    background: $sushi-color;
+    padding: 0 5px;
+    color: white;
+}
+
   .ss-product-name {
     color: $sushi-color;
   }
+}
+
+.ss-cart-item-list {
+  .ss-cart-item {
+    border-bottom: 1px solid rgba(241, 72, 64, 0.6);
+    padding: 10px 0 10px 0;
+  }
+}
+
+.ss-radio-button {
+  padding: 10px;
+  border: 1px solid #f14840;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }

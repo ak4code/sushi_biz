@@ -77,3 +77,46 @@ class Product(SortableMixin, models.Model):
         ordering = ['order']
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
+
+
+class Order(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Имя клиента')
+    phone = models.CharField(max_length=255, verbose_name='Телефон клиента')
+    address = models.CharField(max_length=255, verbose_name='Адрес клиента')
+    person = models.PositiveIntegerField(default=1, verbose_name='Количество персон')
+    delivery = models.BooleanField(default=False, verbose_name='Доставка')
+    create_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    update_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
+
+    def __str__(self):
+        return f'Заказ #{self.id}'
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey('Order', related_name='items', on_delete=models.CASCADE, verbose_name='Заказ')
+    name = models.CharField(max_length=255, verbose_name='Наименование')
+    product = models.ForeignKey('Product', blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Товар')
+    quantity = models.PositiveIntegerField(default=1, verbose_name='Количество')
+    price = models.DecimalField(max_digits=20, decimal_places=2, verbose_name='Цена за шт.')
+
+    @property
+    def amount(self):
+        return self.price * self.quantity
+
+    @property
+    def image(self):
+        if self.product:
+            return self.product.get_small_img()
+        else:
+            return static('shop/no-image.webp')
+
+    def __str__(self):
+        return f'{self.name} x {self.quantity} шт. = {self.amount} руб.'
+
+    class Meta:
+        verbose_name = 'Позиция заказа'
+        verbose_name_plural = 'Позиции заказа'
