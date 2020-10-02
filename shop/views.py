@@ -1,13 +1,14 @@
 import json
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import DetailView, TemplateView
+from django.views.generic import DetailView, TemplateView, View
 from rest_framework import permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
+from sushi_biz.forms import CheckoutForm
 from .models import Category, Product, Order
 from .serializers import ProductSerializer, CategorySerializer, OrderSerializer
 from .permissions import IsClient
@@ -57,9 +58,21 @@ def init_cart(request):
 class CartView(TemplateView):
     template_name = 'shop/cart.html'
 
+    def get(self, request, *args, **kwargs):
+        cart = request.session.get('cart')
+        if not cart:
+            return HttpResponseRedirect('/')
+        return super(CartView, self).get(request, *args, **kwargs)
+
 
 class CheckoutView(TemplateView):
     template_name = 'shop/checkout.html'
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['client'] = request.POST.get('client')
+        return self.render_to_response(context)
 
 
 class OrderViewSet(ModelViewSet):

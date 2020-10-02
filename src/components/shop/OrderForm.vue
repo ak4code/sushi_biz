@@ -58,11 +58,15 @@
                 </small>
             </div>
         </form>
+        <form id="checkout" action="/cart/checkout/" method="post" style="display: none">
+            <input type="text" hidden id="client" name="client" :value="order.name">
+            <slot></slot>
+        </form>
     </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
 
     export default {
         name: 'order-form',
@@ -81,8 +85,24 @@
             })
         },
         methods: {
+            ...mapActions({
+                clearCart: 'cart/clearCart'
+            }),
+            resetOrder () {
+                this.order = {
+                    name: '',
+                    phone: '',
+                    address: '',
+                    person: 1,
+                    delivery: true,
+                }
+            },
             async submitOrder () {
                 await this.$axios.post('/api/orders', { ...this.order, items: this.items })
+                    .then(() => {
+                        this.clearCart()
+                        document.getElementById('checkout').submit()
+                    })
                     .catch(err => console.log(err))
             }
         }

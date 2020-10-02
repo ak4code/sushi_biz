@@ -29,7 +29,7 @@ urlpatterns = [
     path('menu/', include('shop.urls')),
     path('cart/', CartView.as_view(), name='cart'),
     path('cart/init/', init_cart, name='init-cart'),
-    path('cart/checkout', CheckoutView.as_view(), name='checkout'),
+    path('cart/checkout/', CheckoutView.as_view(), name='checkout'),
     path('api/', include(api.urls)),
     path('', include('home.urls')),
 ]

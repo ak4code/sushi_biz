@@ -17,7 +17,9 @@
             </div>
             <div class="uk-width-1-4@m">
                 <div class="uk-card uk-card-default uk-card-small uk-border-rounded uk-card-body">
-                    <order-form></order-form>
+                    <order-form>
+                        {% csrf_token %}
+                    </order-form>
                 </div>
             </div>
         </div>
