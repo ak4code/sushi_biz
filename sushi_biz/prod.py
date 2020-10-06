@@ -19,7 +19,7 @@ WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,
         'BUNDLE_DIR_NAME': '/',
-        'STATS_FILE': BASE_DIR / 'webpack-stats-prod.json',
+        'STATS_FILE': BASE_DIR / 'webpack-prod-stats.json',
         'IGNORE': [r'.+\.hot-update.js', r'.+\.map', r'.+\node_modules'],
     }
 }
