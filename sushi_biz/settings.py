@@ -136,15 +136,6 @@ TINYMCE_DEFAULT_CONFIG = {
     'height': 360,
 }
 
-WEBPACK_LOADER = {
-    'DEFAULT': {
-        'CACHE': not DEBUG,
-        'BUNDLE_DIR_NAME': '/',
-        'STATS_FILE': BASE_DIR / 'webpack-stats.json',
-        'IGNORE': [r'.+\.hot-update.js', r'.+\.map', r'.+\node_modules'],
-    }
-}
-
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
