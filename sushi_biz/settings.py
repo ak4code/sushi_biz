@@ -115,6 +115,7 @@ DATE_FORMAT = "d.m.Y"
 SHORT_DATE_FORMAT = "d.m.Y"
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
