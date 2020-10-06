@@ -9,7 +9,7 @@ DATABASES = {
 
 STATIC_ROOT = BASE_DIR / 'static'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [x for x in env.list('ALLOWED_HOSTS')]
 
 if not DEBUG:
     WEBPACK_LOADER.update({
