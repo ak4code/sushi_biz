@@ -4,7 +4,7 @@
             <span v-if="amount == 0">Корзина</span>
             <span v-else>{{amount}} ₽</span>
         </div>
-        <img src="../../assets/img/basket.svg" uk-svg width="20" height="20">
+        <img src="/static/shop/basket.svg" uk-svg width="20" height="20">
     </a>
 </template>
 
