@@ -18,5 +18,5 @@ STATICFILES_DIRS = (
 if not DEBUG:
     WEBPACK_LOADER.update({
         'BUNDLE_DIR_NAME': '/',
-        'STATS_FILE': BASE_DIR / 'webpack-stats-prod.json'
+        'STATS_FILE': BASE_DIR / '../webpack-stats-prod.json'
     })
