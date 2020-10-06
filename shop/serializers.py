@@ -1,11 +1,18 @@
 from rest_framework.serializers import ModelSerializer, CharField
-from .models import Product, Category, Order, OrderItem
+from .models import Product, Category, Order, OrderItem, ProductOption
+
+
+class ProductOptionSerializer(ModelSerializer):
+    class Meta:
+        model = ProductOption
+        fields = '__all__'
 
 
 class ProductSerializer(ModelSerializer):
     url = CharField(read_only=True, source='get_absolute_url')
     small_img = CharField(read_only=True, source='get_small_img')
     medium_img = CharField(read_only=True, source='get_medium_img')
+    options = ProductOptionSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product

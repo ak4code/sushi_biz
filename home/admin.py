@@ -1,5 +1,6 @@
 from django.contrib import admin
-from genericadmin.admin import GenericAdminModelAdmin, TabularInlineWithGeneric, StackedInlineWithGeneric
+from genericadmin.admin import GenericAdminModelAdmin, TabularInlineWithGeneric
+from adminsortable.admin import SortableAdmin, SortableTabularInline
 
 from .models import HomeConfiguration, Page, Menu, MenuItem
 from solo.admin import SingletonModelAdmin
@@ -12,7 +13,7 @@ class HomeConfigurationAdmin(SingletonModelAdmin):
 
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'create_at', 'update_at')
+    list_display = ('title', 'get_absolute_url', 'create_at', 'update_at')
     fieldsets = (
         ('Основные', {
             'fields': ('title', 'content')
@@ -23,18 +24,19 @@ class PageAdmin(admin.ModelAdmin):
     )
 
 
-class MenuItemsInline(TabularInlineWithGeneric):
+class MenuItemsInline(SortableTabularInline, TabularInlineWithGeneric):
     model = MenuItem
-    extra = 1
+    extra = 0
     exclude = ('title', 'target')
 
 
 @admin.register(Menu)
-class MenuAdmin(GenericAdminModelAdmin):
+class MenuAdmin(GenericAdminModelAdmin, SortableAdmin):
     inlines = [MenuItemsInline, ]
     content_type_whitelist = ('home/page', 'shop/category')
 
 
 @admin.register(MenuItem)
-class MenuItemAdmin(GenericAdminModelAdmin):
+class MenuItemAdmin(SortableAdmin, GenericAdminModelAdmin):
     content_type_whitelist = ('home/page', 'shop/category')
+    list_filter = ('menu',)

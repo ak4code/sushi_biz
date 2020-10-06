@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ page.seo_title }} - {{ block.super }}{% endblock %}
+
+{% block description %}{{ page.seo_description }}{% endblock %}
+
+{% block content %}
+    <div class="uk-container uk-margin" style="min-height: 67vh">
+        <h1 class="uk-text-center uk-h2 uk-text-bold uk-heading-line">
+            <span>{{ page.title }}</span>
+        </h1>
+        <div class="uk-card uk-card-small uk-card-body uk-margin-bottom uk-border-rounded uk-card-default">
+            {{ page.content|safe }}
+        </div>
+    </div>
+{% endblock %}

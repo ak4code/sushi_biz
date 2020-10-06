@@ -51,6 +51,7 @@ class Product(SortableMixin, models.Model):
     label = models.CharField(max_length=255, blank=True, null=True, verbose_name='Ярлык товара')
     active = models.BooleanField(default=True, verbose_name='Активный')
     order = models.PositiveIntegerField(default=0, editable=False, db_index=True, verbose_name='Порядок')
+    options = models.ManyToManyField('ProductOption', blank=True, null=True, verbose_name='Опции')
 
     objects = ProductManager()
 
@@ -79,6 +80,18 @@ class Product(SortableMixin, models.Model):
         verbose_name_plural = 'Товары'
 
 
+class ProductOption(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Название')
+    value = models.CharField(max_length=255, verbose_name='Значение')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Опция товара'
+        verbose_name_plural = 'Опции товара'
+
+
 class Order(models.Model):
     name = models.CharField(max_length=255, verbose_name='Имя клиента')
     phone = models.CharField(max_length=255, verbose_name='Телефон клиента')
@@ -90,6 +103,10 @@ class Order(models.Model):
 
     def __str__(self):
         return f'Заказ #{self.id}'
+
+    @property
+    def amount(self):
+        return sum([item.amount for item in self.items.all()])
 
     class Meta:
         verbose_name = 'Заказ'

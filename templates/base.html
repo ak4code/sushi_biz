@@ -1,5 +1,6 @@
 {% load webpack_loader %}
 {% load static %}
+{% load solo_tags %}
 <!DOCTYPE html>
 <html class="no-js" lang="ru">
 <head>
@@ -28,6 +29,7 @@
     {% render_bundle 'app' 'css' %}
 </head>
 <body>
+{% get_solo 'home.HomeConfiguration' as mysite %}
 <div id="ss-biz">
     <header id="ss-header" uk-sticky>
         <nav class="uk-navbar-container" uk-navbar>
@@ -35,8 +37,9 @@
                 <a class="uk-navbar-item ss-menu" href="#ss-offcanvas-menu" uk-toggle>
                     <span uk-navbar-toggle-icon></span> <span class="uk-visible@m uk-margin-small-left">Меню</span>
                 </a>
-                <div class="uk-navbar-item uk-text-uppercase uk-visible@m">г. Темрюк, ул. Таманская, 6</div>
-                <a href="tel:+79385044737" class="uk-visible@m uk-button-text uk-navbar-item">+7 (938) 50-44-737</a>
+                <div class="uk-navbar-item uk-text-center uk-text-small uk-text-uppercase uk-visible@m">
+                    {{ mysite.contacts|linebreaksbr }}
+                </div>
             </div>
             <div class="uk-navbar-center">
                 <a href="/" class="uk-navbar-item ss-logo" title="Sushi-Shop Темрюк">
@@ -45,8 +48,9 @@
             </div>
             <div class="uk-navbar-right">
                 <ul class="uk-navbar-nav ss-links uk-visible@m">
-                    <li><a href="#">Доставка</a></li>
-                    <li><a href="#">Контакты</a></li>
+                    {% for item in menu.top.items.all %}
+                        <li><a href="{{ item.get_url }}">{{ item.name }}</a></li>
+                    {% endfor %}
                 </ul>
                 <basket url="{% url 'cart' %}"></basket>
             </div>
@@ -81,12 +85,37 @@
     <footer id="ss-footer">
         <div class="uk-card uk-card-body uk-card-default">
             <div class="uk-container">
-                <div class="uk-flex uk-flex-middle uk-flex-wrap">
+                <div class="uk-flex uk-grid-small uk-flex-wrap">
                     <div class="uk-width-1-3@m">
                         <img src="{% static 'home/logo.svg' %}" uk-svg height="90" alt="Sushi-Shop Темрюк">
+                        <div class="uk-text-small uk-text-muted">
+                            {{ mysite.contacts|linebreaksbr }}
+                        </div>
                     </div>
-                    <div class="uk-width-1-3@m">{{ menu.slug.name }}</div>
-                    <div class="uk-width-1-3@m"></div>
+                    <div class="uk-width-1-3@m">
+                        <h5 class="uk-text-muted uk-heading-divider">
+                            {{ menu.pravo.name }}
+                        </h5>
+                        <ul class="uk-list">
+                            {% for item in menu.pravo.items.all %}
+                                <li><a href="{{ item.get_url }}" class="uk-text-muted">{{ item.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="uk-width-1-3@m">
+                        <h5 class="uk-text-muted uk-heading-divider">
+                            {{ menu.social.name }}
+                        </h5>
+                        <div class="uk-flex uk-flex-wrap uk-grid-small">
+                            {% for social in menu.social.items.all %}
+                                <div>
+                                    <a href="{{ social.get_url }}" title="{{ social.title }}">
+                                        <img src="{{ social.image.url }}" width="50" height="50">
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

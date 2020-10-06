@@ -20,7 +20,7 @@ const cart = {
     mutations: {
         ADD_ITEM (state, product) {
             state.items.push({
-                name: product.name,
+                name: product.modifyName || product.name,
                 product: product.id,
                 quantity: 1,
                 price: product.price,

@@ -162,3 +162,18 @@ THUMBNAIL_ALIASES = {
         'medium': {'size': (350, 350), 'quality': 80, 'crop': False},
     },
 }
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        'TIMEOUT': 60,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+TG_BOT_TOKEN = env('TG_BOT_TOKEN')
+VK_BOT_TOKEN = env('VK_BOT_TOKEN')
+VK_ADMINS_IDS = env('VK_ADMINS_IDS')

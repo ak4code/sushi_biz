@@ -2,16 +2,16 @@ import json
 
 from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import DetailView, TemplateView, View
+from django.views.generic import DetailView, TemplateView
 from rest_framework import permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from sushi_biz.forms import CheckoutForm
 from .models import Category, Product, Order
 from .serializers import ProductSerializer, CategorySerializer, OrderSerializer
 from .permissions import IsClient
+from .utils import order_create_notification
 
 
 class CategoryDetailView(DetailView):
@@ -26,7 +26,7 @@ class CategoryViewSet(ModelViewSet):
     @action(detail=True, methods=['get'])
     def products(self, request, pk=None):
         category = self.get_object()
-        products = category.products.all()
+        products = category.products.active()
         page = self.paginate_queryset(products)
         if page is not None:
             serializer = ProductSerializer(page, many=True)
@@ -88,3 +88,6 @@ class OrderViewSet(ModelViewSet):
         else:
             permission_classes = [permissions.DjangoModelPermissions]
         return [permission() for permission in permission_classes]
+
+    def perform_create(self, serializer):
+        order_create_notification(serializer.save())

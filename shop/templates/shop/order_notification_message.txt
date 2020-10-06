@@ -1,0 +1,16 @@
+*** Новый заказ № {{order.id}} ***
+
+Имя: {{order.name}}
+Телефон: {{order.phone}}
+Количество персон: {{order.person}}
+{% if order.delivery%}
+Доставка: Да
+Адрес: {{order.address}}
+{% else %}
+Доставка: САМОВЫВОЗ
+{% endif %}
+*** Всего позиций: {{order.items.count}} ***
+{% for item in order.items.all %}
+{{item}}
+{% endfor %}
+*** Итого на сумму: {{ order.amount }} руб. ***

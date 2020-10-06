@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 from .models import Page
 
 
@@ -9,3 +9,8 @@ class HomeIndexView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['page'] = Page.objects.get(is_home__exact=True)
         return context
+
+
+class PageView(DetailView):
+    model = Page
+    template_name = 'home/page.html'
