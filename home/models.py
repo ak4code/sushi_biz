@@ -10,6 +10,8 @@ from tinymce import HTMLField
 from uuslug import uuslug
 from adminsortable.models import SortableMixin, SortableForeignKey
 
+from home.managers import MenuItemManager
+
 
 def app_labeled_name(self):
     model = self.model_class()
@@ -113,6 +115,8 @@ class MenuItem(SortableMixin, models.Model):
     image = models.ImageField(upload_to='menu', blank=True, null=True, verbose_name='Картинка')
     show_in_menu = models.BooleanField(default=True, verbose_name='Отображать в меню')
     order = models.PositiveIntegerField(default=0, editable=False, db_index=True, verbose_name='Порядок')
+
+    objects = MenuItemManager()
 
     def __str__(self):
         return self.name

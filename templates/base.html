@@ -48,7 +48,7 @@
             </div>
             <div class="uk-navbar-right">
                 <ul class="uk-navbar-nav ss-links uk-visible@m">
-                    {% for item in menu.top.items.all %}
+                    {% for item in menu.top.items.active %}
                         <li><a href="{{ item.get_url }}">{{ item.name }}</a></li>
                     {% endfor %}
                 </ul>
@@ -62,7 +62,7 @@
             <button class="uk-offcanvas-close" type="button" uk-close></button>
             <ul class="uk-nav uk-nav-default">
                 <li class="uk-nav-header uk-margin-left">{{ menu.category.name }}</li>
-                {% for item in menu.category.items.all %}
+                {% for item in menu.category.items.active %}
                     <li>
                         <a href="{{ item.get_url }}">{{ item.name }}<span class="uk-align-right uk-margin-remove"
                                                                           uk-icon="icon: folder"></span></a>
@@ -97,7 +97,7 @@
                             {{ menu.pravo.name }}
                         </h5>
                         <ul class="uk-list">
-                            {% for item in menu.pravo.items.all %}
+                            {% for item in menu.pravo.items.active %}
                                 <li><a href="{{ item.get_url }}" class="uk-text-muted">{{ item.name }}</a></li>
                             {% endfor %}
                         </ul>
@@ -107,7 +107,7 @@
                             {{ menu.social.name }}
                         </h5>
                         <div class="uk-flex uk-flex-wrap uk-grid-small">
-                            {% for social in menu.social.items.all %}
+                            {% for social in menu.social.items.active %}
                                 <div>
                                     <a href="{{ social.get_url }}" title="{{ social.title }}">
                                         <img src="{{ social.image.url }}" width="50" height="50">
