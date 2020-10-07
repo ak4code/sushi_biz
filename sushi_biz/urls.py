@@ -19,11 +19,21 @@ from django.contrib import admin
 from django.urls import path, include
 from .endpoints import router as api
 from shop.views import CartView, CheckoutView, init_cart
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import StaticViewSitemap, CategorySitemap, PageSitemap
 
 admin.site.site_header = 'Sushi-Shop'
 admin.site.site_title = 'Sushi-Shop'
 
+sitemaps = {
+    'static': StaticViewSitemap,
+    'category': CategorySitemap,
+    'page': PageSitemap,
+}
+
 urlpatterns = [
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.sitemap'),
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('menu/', include('shop.urls')),

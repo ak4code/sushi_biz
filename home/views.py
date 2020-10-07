@@ -14,3 +14,8 @@ class HomeIndexView(TemplateView):
 class PageView(DetailView):
     model = Page
     template_name = 'home/page.html'
+
+
+class RobotsView(TemplateView):
+    template_name = 'home/robots.txt'
+    content_type = "text/plain"

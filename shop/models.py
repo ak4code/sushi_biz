@@ -51,7 +51,7 @@ class Product(SortableMixin, models.Model):
     label = models.CharField(max_length=255, blank=True, null=True, verbose_name='Ярлык товара')
     active = models.BooleanField(default=True, verbose_name='Активный')
     order = models.PositiveIntegerField(default=0, editable=False, db_index=True, verbose_name='Порядок')
-    options = models.ManyToManyField('ProductOption', blank=True, null=True, verbose_name='Опции')
+    options = models.ManyToManyField('ProductOption', blank=True, verbose_name='Опции')
 
     objects = ProductManager()
 
