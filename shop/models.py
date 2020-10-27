@@ -95,7 +95,7 @@ class ProductOption(models.Model):
 class Order(models.Model):
     name = models.CharField(max_length=255, verbose_name='Имя клиента')
     phone = models.CharField(max_length=255, verbose_name='Телефон клиента')
-    address = models.CharField(max_length=255, verbose_name='Адрес клиента')
+    address = models.CharField(max_length=255, blank=True, null=True, verbose_name='Адрес клиента')
     person = models.PositiveIntegerField(default=1, verbose_name='Количество персон')
     delivery = models.BooleanField(default=False, verbose_name='Доставка')
     create_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
