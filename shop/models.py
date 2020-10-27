@@ -125,6 +125,13 @@ class OrderItem(models.Model):
         return self.price * self.quantity
 
     @property
+    def category_name(self):
+        if self.product.category:
+            return self.product.category.name
+        else:
+            return 'Без категории'
+
+    @property
     def image(self):
         if self.product:
             return self.product.get_small_img()

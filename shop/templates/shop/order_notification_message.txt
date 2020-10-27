@@ -11,6 +11,6 @@
 {% endif %}
 *** Всего позиций: {{order.items.count}} ***
 {% for item in order.items.all %}
-{{item}}
+{{item.category_name}}: {{item}}
 {% endfor %}
 *** Итого на сумму: {{ order.amount }} руб. ***
