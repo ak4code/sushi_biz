@@ -28,7 +28,7 @@ class ProductAdmin(ImportExportActionModelAdmin, SortableAdmin):
     list_display = ('name', 'category', 'price', 'active')
     list_display_links = ('name',)
     list_filter = ('category', 'active')
-    search_fields = ('title',)
+    search_fields = ('name',)
     resource_class = ProductResource
     fieldsets = (
         ('Основные', {
