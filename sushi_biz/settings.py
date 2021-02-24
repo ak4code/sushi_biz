@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'import_export',
     'rest_framework',
     'easy_thumbnails',
+    'maintenancemode',
     # my_apps
     'home.apps.HomeConfig',
     'shop.apps.ShopConfig',
@@ -46,6 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'maintenancemode.middleware.MaintenanceModeMiddleware',
 ]
 
 ROOT_URLCONF = 'sushi_biz.urls'
@@ -170,3 +172,5 @@ CACHES = {
 TG_BOT_TOKEN = env('TG_BOT_TOKEN')
 VK_BOT_TOKEN = env('VK_BOT_TOKEN')
 VK_ADMINS_IDS = env('VK_ADMINS_IDS')
+
+MAINTENANCE_MODE = False
