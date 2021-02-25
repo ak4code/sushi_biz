@@ -22,6 +22,20 @@ class ProductResource(resources.ModelResource):
         model = Product
 
 
+def set_active(modeladmin, request, queryset):
+    queryset.update(active=True)
+
+
+set_active.short_description = "Сделать активными"
+
+
+def set_inactive(modeladmin, request, queryset):
+    queryset.update(active=False)
+
+
+set_inactive.short_description = "Сделать неактивными"
+
+
 @admin.register(Product)
 class ProductAdmin(ImportExportActionModelAdmin, SortableAdmin):
     change_list_template_extends = 'admin/import_export/change_list_import_export.html'
@@ -29,6 +43,7 @@ class ProductAdmin(ImportExportActionModelAdmin, SortableAdmin):
     list_display_links = ('name',)
     list_filter = ('category', 'active')
     search_fields = ('name',)
+    actions = [set_active, set_inactive, ]
     resource_class = ProductResource
     fieldsets = (
         ('Основные', {
