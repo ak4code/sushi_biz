@@ -10,7 +10,7 @@
         </div>
         <div v-else>
             <div v-if="page.count">
-                <div class="uk-flex uk-flex-wrap uk-grid-match uk-grid-small uk-child-width-1-5@m uk-child-width-1-2">
+                <div class="uk-flex uk-flex-wrap uk-grid-match uk-grid-small uk-child-width-1-5@l uk-child-width-1-4@m uk-child-width-1-3@s uk-child-width-1-2">
                     <div v-for="product in this.page.results" :key="product.id">
                         <product :product="product"></product>
                     </div>
