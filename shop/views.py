@@ -76,7 +76,7 @@ class CheckoutView(TemplateView):
 
 
 class OrderViewSet(ModelViewSet):
-    queryset = Order.objects.prefetch_related('items', ).select_related('items__product')
+    queryset = Order.objects.prefetch_related('items')
     serializer_class = OrderSerializer
 
     def get_permissions(self):
