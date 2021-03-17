@@ -3,7 +3,7 @@ import json
 from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView, TemplateView
-from rest_framework import permissions
+from rest_framework import permissions, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -78,6 +78,8 @@ class CheckoutView(TemplateView):
 class OrderViewSet(ModelViewSet):
     queryset = Order.objects.prefetch_related('items')
     serializer_class = OrderSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['$phone']
 
     def get_permissions(self):
         """
