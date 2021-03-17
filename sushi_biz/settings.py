@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'genericadmin',
     'import_export',
     'rest_framework',
+    'django_filters',
     'easy_thumbnails',
     'maintenancemode',
     # my_apps
