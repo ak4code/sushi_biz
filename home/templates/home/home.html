@@ -24,6 +24,7 @@
             {% endfor %}
         </div>
     </div>
+    {% if menu.promo.items %}
     <div class="uk-container uk-margin">
         <h2 class="uk-text-center uk-text-bold uk-heading-line"><span>{{ menu.promo.name }}</span></h2>
         <div class="uk-flex uk-flex-center uk-flex-wrap uk-child-width-1-2 uk-child-width-1-4@m uk-grid-small uk-margin-top">
@@ -44,6 +45,7 @@
             {% endfor %}
         </div>
     </div>
+    {% endif %}
     <div class="uk-container uk-margin">
         <div class="uk-card uk-card-body uk-card-default uk-border-rounded">
             <h1 class="uk-text-center">{{ page.title }}</h1>
